@@ -47,7 +47,7 @@ export default function About() {
               </p>
               <p>
                 Currently at{' '}
-                <span className="text-indigo-400 font-semibold">Q Data Tech</span>, I architect
+                <span className="text-indigo-400 font-semibold">Q Data (IHC - Cyrius Holdings)</span>, I architect
                 multi-agent AI trading systems, algorithmic execution engines, and real-time
                 analytics platforms that handle millions in portfolio value.
               </p>

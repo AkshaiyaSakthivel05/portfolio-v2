@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle, Linkedin, Github } from 'lucide-react';
+import { Mail, MapPin, Send, CheckCircle, AlertCircle, Linkedin, Github } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import ScrollReveal from '@/components/effects/ScrollReveal';
@@ -26,14 +26,6 @@ const CONTACT_INFO = [
     bg: 'bg-indigo-500/10',
   },
   {
-    icon: Phone,
-    label: 'Phone',
-    value: '+91 XXXXX XXXXX',
-    href: '#',
-    color: 'text-cyan-400',
-    bg: 'bg-cyan-500/10',
-  },
-  {
     icon: MapPin,
     label: 'Location',
     value: 'Chennai, India',
@@ -53,7 +45,7 @@ const CONTACT_INFO = [
     icon: Github,
     label: 'GitHub',
     value: 'AKS-ai-sys',
-    href: 'https://github.com/AKS-ai-sys',
+    href: 'https://github.com/AkshaiyaSakthivel05',
     color: 'text-slate-300',
     bg: 'bg-slate-500/10',
   },

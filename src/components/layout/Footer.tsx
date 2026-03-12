@@ -13,7 +13,7 @@ export default function Footer() {
 
         <div className="flex items-center gap-4">
           <a
-            href="https://github.com/AKS-ai-sys"
+            href="https://github.com/AkshaiyaSakthivel05"
             target="_blank"
             rel="noopener noreferrer"
             className="p-2 rounded-lg text-slate-500 hover:text-white hover:bg-white/5 transition-all"

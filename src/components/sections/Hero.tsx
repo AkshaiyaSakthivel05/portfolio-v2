@@ -125,8 +125,8 @@ export default function Hero() {
             <ArrowRight size={18} />
           </button>
           <a
-            href="/resume.pdf"
-            download
+            href="/Akshaiya-Sakthivel-Resume.pdf"
+            download="Akshaiya-Sakthivel-Resume.pdf"
             className="flex items-center gap-2 px-7 py-3.5 rounded-xl text-slate-200 font-semibold text-base border border-indigo-500/40 hover:border-indigo-500/80 hover:bg-indigo-500/10 transition-all duration-200"
           >
             <Download size={18} />
@@ -135,7 +135,7 @@ export default function Hero() {
 
           {/* Social icons */}
           <a
-            href="https://github.com/AKS-ai-sys"
+            href="https://github.com/AkshaiyaSakthivel05"
             target="_blank"
             rel="noopener noreferrer"
             className="p-3.5 rounded-xl border border-white/10 hover:border-white/30 text-slate-400 hover:text-white transition-all duration-200 hover:bg-white/5"
