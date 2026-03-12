@@ -13,7 +13,7 @@ export const experiences: ExperienceItem[] = [
   {
     id: 1,
     role: 'AI Developer',
-    company: 'Q Data (IHC - Cyrius Holdings)',
+    company: 'Q Data Tech (IHC - Cyrius Holdings)',
     location: 'Abu Dhabi, UAE',
     period: 'May 2025 – Present',
     type: 'work',
