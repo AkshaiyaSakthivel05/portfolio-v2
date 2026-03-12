@@ -52,17 +52,25 @@ const CONTACT_INFO = [
   {
     icon: Linkedin,
     label: 'LinkedIn',
-    value: 'akshaiya-sakthivel',
-    href: 'https://linkedin.com/in/akshaiya-sakthivel',
+    value: 'akshaiyasakthivel-aa1053240',
+    href: 'https://linkedin.com/in/akshaiyasakthivel-aa1053240',
     color: 'text-blue-400',
     bg: 'bg-blue-500/10',
   },
   {
     icon: Github,
-    label: 'GitHub',
+    label: 'GitHub (Main)',
     value: 'AkshaiyaSakthivel05',
     href: 'https://github.com/AkshaiyaSakthivel05',
     color: 'text-slate-300',
+    bg: 'bg-slate-500/10',
+  },
+  {
+    icon: Github,
+    label: 'GitHub (Research)',
+    value: 'AkshaiyaSakthivel003',
+    href: 'https://github.com/AkshaiyaSakthivel003',
+    color: 'text-slate-400',
     bg: 'bg-slate-500/10',
   },
 ];

@@ -44,12 +44,12 @@ export const experiences: ExperienceItem[] = [
   {
     id: 3,
     role: 'B.Tech — Artificial Intelligence & Data Science',
-    company: 'Sri Eshwar College of Engineering',
+    company: 'Sri Krishna College of Technology',
     location: 'Coimbatore, India',
     period: '2021 – 2025',
     type: 'education',
     bullets: [
-      'Specialized in machine learning, deep learning, and data science with hands-on projects.',
+      'Graduated with CGPA 8.32 — specialized in machine learning, deep learning, and data science with hands-on projects.',
       'Research on Hybrid Reasoning Models (HRM) — 27M parameter architecture for ARC-AGI abstract reasoning tasks.',
       'Active participant in hackathons, AI competitions, and open-source contributions.',
     ],

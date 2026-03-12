@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Github, Cpu, TrendingUp, Code2 } from 'lucide-react';
+import { ExternalLink, Github, Cpu, TrendingUp, Code2, Lock } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import ScrollReveal from '@/components/effects/ScrollReveal';
 import { projects, type ProjectCategory } from '@/data/projects';
@@ -142,7 +142,12 @@ export default function Projects() {
                       </div>
 
                       {/* Links */}
-                      <div className="flex gap-3">
+                      <div className="flex gap-3 items-center">
+                        {project.privateOrg && (
+                          <span className="flex items-center gap-1.5 text-xs text-slate-500 border border-slate-700 rounded-md px-2 py-0.5">
+                            <Lock size={10} /> Private · Org
+                          </span>
+                        )}
                         {project.github && (
                           <a href={project.github} target="_blank" rel="noopener noreferrer"
                             className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-white transition-colors">
@@ -216,7 +221,12 @@ export default function Projects() {
                           )}
                         </div>
 
-                        <div className="flex gap-3">
+                        <div className="flex gap-3 items-center">
+                          {project.privateOrg && (
+                            <span className="flex items-center gap-1 text-xs text-slate-600 border border-slate-800 rounded px-1.5 py-0.5">
+                              <Lock size={9} /> Private · Org
+                            </span>
+                          )}
                           {project.github && (
                             <a href={project.github} target="_blank" rel="noopener noreferrer"
                               className="flex items-center gap-1 text-xs text-slate-500 hover:text-white transition-colors">

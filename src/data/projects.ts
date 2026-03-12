@@ -11,6 +11,7 @@ export interface Project {
   featured: boolean;
   github?: string;
   live?: string;
+  privateOrg?: boolean;
   gradient: string;
 }
 
@@ -28,6 +29,7 @@ export const projects: Project[] = [
       { label: 'Uptime', value: '99.9%' },
     ],
     featured: true,
+    privateOrg: true,
     gradient: 'from-indigo-500 to-cyan-500',
   },
   {
@@ -43,6 +45,7 @@ export const projects: Project[] = [
       { label: 'Sharpe', value: '2.1+' },
     ],
     featured: true,
+    privateOrg: true,
     gradient: 'from-purple-500 to-indigo-500',
   },
   {
@@ -58,6 +61,7 @@ export const projects: Project[] = [
       { label: 'Latency', value: '<2s' },
     ],
     featured: false,
+    privateOrg: true,
     gradient: 'from-cyan-500 to-teal-500',
   },
   {
@@ -73,6 +77,7 @@ export const projects: Project[] = [
       { label: 'Charts', value: 'Real-time' },
     ],
     featured: false,
+    privateOrg: true,
     gradient: 'from-indigo-500 to-purple-500',
   },
   {
@@ -88,6 +93,7 @@ export const projects: Project[] = [
       { label: 'Latency', value: '<50ms' },
     ],
     featured: false,
+    privateOrg: true,
     gradient: 'from-orange-500 to-red-500',
   },
   {
@@ -103,6 +109,7 @@ export const projects: Project[] = [
       { label: 'Accuracy', value: '99%+' },
     ],
     featured: false,
+    privateOrg: true,
     gradient: 'from-green-500 to-cyan-500',
   },
   {
@@ -118,6 +125,7 @@ export const projects: Project[] = [
       { label: 'Metrics', value: '20+' },
     ],
     featured: false,
+    privateOrg: true,
     gradient: 'from-blue-500 to-indigo-500',
   },
   {
@@ -133,6 +141,7 @@ export const projects: Project[] = [
       { label: 'GPU', value: 'CUDA' },
     ],
     featured: false,
+    privateOrg: true,
     gradient: 'from-pink-500 to-purple-500',
   },
 ];

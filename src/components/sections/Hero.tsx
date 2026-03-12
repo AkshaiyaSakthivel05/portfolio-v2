@@ -144,7 +144,7 @@ export default function Hero() {
             <Github size={20} />
           </a>
           <a
-            href="https://linkedin.com/in/akshaiya-sakthivel"
+            href="https://linkedin.com/in/akshaiyasakthivel-aa1053240"
             target="_blank"
             rel="noopener noreferrer"
             className="p-3.5 rounded-xl border border-indigo-500/20 hover:border-indigo-500/60 text-slate-400 hover:text-indigo-400 transition-all duration-200 hover:bg-indigo-500/10"
