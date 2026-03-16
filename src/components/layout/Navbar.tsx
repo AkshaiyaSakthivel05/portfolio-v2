@@ -10,7 +10,9 @@ const NAV_LINKS = [
   { href: '#about', label: 'About' },
   { href: '#projects', label: 'Projects' },
   { href: '#skills', label: 'Skills' },
+  { href: '#technologies', label: 'Tools' },
   { href: '#experience', label: 'Experience' },
+  { href: '#certifications', label: 'Certs' },
   { href: '#contact', label: 'Contact' },
 ];
 
@@ -81,7 +83,7 @@ export default function Navbar() {
                   key={link.href}
                   onClick={() => scrollTo(link.href)}
                   className={cn(
-                    'px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200',
+                    'px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200',
                     isActive
                       ? 'text-indigo-400 bg-indigo-500/10'
                       : 'text-slate-400 hover:text-white hover:bg-white/5'
