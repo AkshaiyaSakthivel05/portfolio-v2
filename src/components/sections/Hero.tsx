@@ -9,10 +9,10 @@ import AnimatedCounter from '@/components/effects/AnimatedCounter';
 const TYPING_WORDS = ['AI Engineer', 'FinTech Developer', 'Full-Stack Builder', 'Quant Researcher'];
 
 const METRICS = [
-  { label: 'Projects', value: 8, suffix: '+', prefix: '' },
-  { label: 'Uptime', value: 99.5, suffix: '%', prefix: '', decimals: 1 },
-  { label: 'ML Accuracy', value: 85, suffix: '%+', prefix: '' },
-  { label: 'Portfolio Value', value: 300, suffix: 'K+', prefix: '$' },
+  { label: 'Projects', value: 9, suffix: '', prefix: '' },
+  { label: 'Uptime', value: 99.9, suffix: '%', prefix: '', decimals: 1 },
+  { label: 'ML Accuracy', value: 85, suffix: '%', prefix: '' },
+  { label: 'Years Experience', value: 2, suffix: '+', prefix: '' },
 ];
 
 const ORBS = [
