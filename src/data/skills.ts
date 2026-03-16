@@ -22,7 +22,8 @@ export const skillCategories: SkillCategory[] = [
       { name: 'LangChain', level: 88 },
       { name: 'Scikit-learn', level: 85 },
       { name: 'Gemini API', level: 87 },
-      { name: 'NLP / VADER', level: 80 },
+      { name: 'ChromaDB / RAG', level: 82 },
+      { name: 'OpenRouter API', level: 80 },
     ],
   },
   {
@@ -47,8 +48,8 @@ export const skillCategories: SkillCategory[] = [
       { name: 'TypeScript', level: 85 },
       { name: 'Next.js', level: 83 },
       { name: 'Tailwind CSS', level: 90 },
-      { name: 'TanStack', level: 80 },
-      { name: 'Framer Motion', level: 78 },
+      { name: 'TanStack Query', level: 82 },
+      { name: 'React Router', level: 80 },
     ],
   },
   {

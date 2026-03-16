@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Github, Cpu, TrendingUp, Code2, Lock } from 'lucide-react';
+import { ExternalLink, Github, Cpu, TrendingUp, Code2, Lock, Trophy } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import ScrollReveal from '@/components/effects/ScrollReveal';
 import { projects, type ProjectCategory } from '@/data/projects';
@@ -107,9 +107,15 @@ export default function Projects() {
                             </Badge>
                           );
                         })}
-                        <span className="ml-auto text-xs text-indigo-400 font-semibold px-2 py-0.5 bg-indigo-500/10 rounded-full">
-                          Featured
-                        </span>
+                        {project.hackathon ? (
+                          <span className="ml-auto flex items-center gap-1 text-xs text-amber-400 font-semibold px-2 py-0.5 bg-amber-500/10 border border-amber-500/20 rounded-full">
+                            <Trophy size={10} /> Hackathon
+                          </span>
+                        ) : (
+                          <span className="ml-auto text-xs text-indigo-400 font-semibold px-2 py-0.5 bg-indigo-500/10 rounded-full">
+                            Featured
+                          </span>
+                        )}
                       </div>
 
                       {/* Title */}
@@ -143,7 +149,12 @@ export default function Projects() {
 
                       {/* Links */}
                       <div className="flex gap-3 items-center">
-                        {project.privateOrg && (
+                        {project.hackathon && (
+                          <span className="flex items-center gap-1.5 text-xs text-amber-400 border border-amber-500/30 rounded-md px-2 py-0.5">
+                            <Trophy size={10} /> Hackathon
+                          </span>
+                        )}
+                        {project.privateOrg && !project.hackathon && (
                           <span className="flex items-center gap-1.5 text-xs text-slate-500 border border-slate-700 rounded-md px-2 py-0.5">
                             <Lock size={10} /> Private · Org
                           </span>
@@ -222,7 +233,12 @@ export default function Projects() {
                         </div>
 
                         <div className="flex gap-3 items-center">
-                          {project.privateOrg && (
+                          {project.hackathon && (
+                            <span className="flex items-center gap-1 text-xs text-amber-400 border border-amber-500/30 rounded px-1.5 py-0.5">
+                              <Trophy size={9} /> Hackathon
+                            </span>
+                          )}
+                          {project.privateOrg && !project.hackathon && (
                             <span className="flex items-center gap-1 text-xs text-slate-600 border border-slate-800 rounded px-1.5 py-0.5">
                               <Lock size={9} /> Private · Org
                             </span>

@@ -12,6 +12,7 @@ export interface Project {
   github?: string;
   live?: string;
   privateOrg?: boolean;
+  hackathon?: boolean;
   gradient: string;
 }
 
@@ -143,5 +144,22 @@ export const projects: Project[] = [
     featured: false,
     privateOrg: true,
     gradient: 'from-pink-500 to-purple-500',
+  },
+  {
+    id: 9,
+    title: 'Acceler-AI — Startup Ecosystem Platform',
+    description: 'Full-stack startup accelerator platform with AI pitch deck analyzer (0–100 scoring across 5 dimensions) and natural language assistant over live DB data.',
+    longDescription: 'IFAVHUB — a comprehensive startup ecosystem built at a hackathon. Manages startups, investors, deals, events, and fundraising with two distinct AI workflows: PDF pitch deck analysis via LangChain + ChromaDB + LLM, and a conversational assistant with live DB context injection.',
+    category: ['AI/ML', 'Full-Stack'],
+    tech: ['FastAPI', 'LangChain', 'ChromaDB', 'OpenRouter', 'React 18', 'TypeScript', 'TanStack Query', 'SQLite', 'shadcn/ui', 'Tailwind v4'],
+    metrics: [
+      { label: 'Modules', value: '11' },
+      { label: 'AI Workflows', value: '2 (Analyzer + Assistant)' },
+      { label: 'Pitch Scoring', value: '5 Dimensions' },
+    ],
+    featured: true,
+    hackathon: true,
+    github: 'https://github.com/AkshaiyaSakthivel003/Acceler-AI',
+    gradient: 'from-amber-500 to-orange-500',
   },
 ];
