@@ -74,7 +74,8 @@ export default function Skills() {
                       borderRadius: 8,
                       color: '#f8fafc',
                     }}
-                    formatter={(val: number | undefined) => [`${val ?? 0}/100`, 'Score']}
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    formatter={(val: any) => [`${val ?? 0}/100`, 'Score']}
                   />
                 </RadarChart>
               </ResponsiveContainer>
@@ -141,7 +142,8 @@ export default function Skills() {
                         color: '#f8fafc',
                         fontSize: 12,
                       }}
-                      formatter={(val: number | undefined) => [`${val ?? 0}%`, 'Proficiency']}
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                      formatter={(val: any) => [`${val ?? 0}%`, 'Proficiency']}
                     />
                     <Bar dataKey="level" radius={[0, 4, 4, 0]} maxBarSize={16}>
                       {barData.map((_, idx) => (
