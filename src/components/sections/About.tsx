@@ -1,21 +1,43 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { Brain, TrendingUp, Cpu, Zap } from 'lucide-react';
-import ScrollReveal from '@/components/effects/ScrollReveal';
-import AnimatedCounter from '@/components/effects/AnimatedCounter';
+import { motion } from "framer-motion";
+import { Brain, TrendingUp, Cpu, Zap } from "lucide-react";
+import ScrollReveal from "@/components/effects/ScrollReveal";
+import AnimatedCounter from "@/components/effects/AnimatedCounter";
 
 const STATS = [
-  { icon: TrendingUp, label: 'Years Experience', value: 2, suffix: '+', color: 'text-indigo-400' },
-  { icon: Cpu, label: 'Systems Built', value: 8, suffix: '+', color: 'text-cyan-400' },
-  { icon: Brain, label: 'ML Accuracy', value: 85, suffix: '%+', color: 'text-purple-400' },
-  { icon: Zap, label: 'Uptime SLA', value: 99.9, suffix: '%', decimals: 1, color: 'text-green-400' },
+  { icon: TrendingUp, label: "Years Experience", value: 2, suffix: "+", color: "text-indigo-400" },
+  { icon: Cpu, label: "Systems Built", value: 18, suffix: "+", color: "text-cyan-400" },
+  { icon: Brain, label: "ML Accuracy", value: 85, suffix: "%+", color: "text-purple-400" },
+  {
+    icon: Zap,
+    label: "Uptime SLA",
+    value: 99.9,
+    suffix: "%",
+    decimals: 1,
+    color: "text-green-400",
+  },
 ];
 
 const TECH_BADGES = [
-  'Python', 'PyTorch', 'FastAPI', 'LangChain', 'React 19', 'Next.js',
-  'TypeScript', 'Docker', 'MT5 API', 'PostgreSQL', 'Redis', 'Celery',
-  'TradingView', 'Gemini API', 'TanStack', 'Pandas', 'NumPy', 'CUDA',
+  "Python",
+  "PyTorch",
+  "FastAPI",
+  "LangChain",
+  "React 19",
+  "Next.js",
+  "TypeScript",
+  "Docker",
+  "MT5 API",
+  "PostgreSQL",
+  "Redis",
+  "Celery",
+  "TradingView",
+  "Gemini API",
+  "TanStack",
+  "Pandas",
+  "NumPy",
+  "CUDA",
 ];
 
 export default function About() {
@@ -31,8 +53,8 @@ export default function About() {
             About Me
           </span>
           <h2 className="section-heading">
-            Building the <span className="gradient-text">Future of Finance</span>
-            <br />with Artificial Intelligence
+            Building AI systems at the intersection of{" "}
+            <span className="gradient-text">quantitative finance</span> and production engineering.
           </h2>
         </ScrollReveal>
 
@@ -41,34 +63,35 @@ export default function About() {
           <ScrollReveal direction="left" delay={0.1}>
             <div className="space-y-5 text-slate-400 leading-relaxed text-base">
               <p>
-                I&apos;m <span className="text-white font-semibold">Akshaiya Sakthivel</span>, an AI Developer
-                and FinTech engineer with a passion for building systems at the intersection of
-                artificial intelligence and financial markets.
+                I&apos;m <span className="text-white font-semibold">Akshaiya Sakthivel</span>, an AI
+                Developer and FinTech engineer. I build systems at the intersection of artificial
+                intelligence and financial markets.
               </p>
               <p>
-                Currently at{' '}
-                <span className="text-indigo-400 font-semibold">Q Data (IHC - Cyrius Holdings)</span>, I architect
-                multi-agent AI trading systems, algorithmic execution engines, and real-time
-                analytics platforms that handle millions in portfolio value.
+                Currently at{" "}
+                <span className="text-indigo-400 font-semibold">
+                  Q Data (IHC - Cyrius Holdings)
+                </span>
+                , I architect multi-agent AI trading systems, algorithmic execution engines, and
+                real-time analytics platforms that handle millions in portfolio value.
               </p>
               <p>
-                My approach combines{' '}
-                <span className="text-cyan-400 font-medium">quantitative rigor</span> with{' '}
-                <span className="text-purple-400 font-medium">deep learning</span> — from Kelly Criterion
-                position sizing to 27M-parameter reasoning models. I thrive at the edges of what&apos;s
-                technically possible.
+                My approach combines{" "}
+                <span className="text-cyan-400 font-medium">quantitative rigor</span> with{" "}
+                <span className="text-purple-400 font-medium">deep learning</span> — from Kelly
+                Criterion position sizing to 27M-parameter reasoning models. I&apos;m drawn to
+                problems where engineering precision matters most.
               </p>
               <p>
-                When I&apos;m not building trading systems, I&apos;m researching hybrid AI architectures
-                for abstract reasoning (ARC-AGI), contributing to open-source projects, and
-                mentoring aspiring AI engineers.
+                When I&apos;m not building trading systems, I&apos;m researching hybrid AI
+                architectures for abstract reasoning (ARC-AGI), contributing to open-source
+                projects, and mentoring aspiring AI engineers.
               </p>
 
               {/* Highlight callout */}
               <div className="glass p-4 rounded-xl border-l-4 border-indigo-500 mt-6">
                 <p className="text-white font-medium text-sm">
-                  &quot;I believe the best financial technology is invisible — it just works,
-                  reliably, at scale, with machine-level precision.&quot;
+                  &quot;The best systems are invisible — they just work, reliably, at scale.&quot;
                 </p>
               </div>
             </div>
@@ -106,7 +129,7 @@ export default function About() {
                 <p className="text-slate-600 text-xs font-semibold uppercase tracking-wider mb-3">
                   Technologies I work with
                 </p>
-                <div className="flex gap-2 animate-marquee" style={{ width: 'max-content' }}>
+                <div className="flex gap-2 animate-marquee" style={{ width: "max-content" }}>
                   {[...TECH_BADGES, ...TECH_BADGES].map((tech, i) => (
                     <span
                       key={`${tech}-${i}`}

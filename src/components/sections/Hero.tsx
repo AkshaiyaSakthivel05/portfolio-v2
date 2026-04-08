@@ -1,29 +1,29 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { ArrowDown, Github, Linkedin, Download, ArrowRight } from 'lucide-react';
-import ParticleField from '@/components/effects/ParticleField';
-import TypingText from '@/components/effects/TypingText';
-import AnimatedCounter from '@/components/effects/AnimatedCounter';
+import { motion } from "framer-motion";
+import { ArrowDown, Github, Linkedin, Download, ArrowRight } from "lucide-react";
+import ParticleField from "@/components/effects/ParticleField";
+import TypingText from "@/components/effects/TypingText";
+import AnimatedCounter from "@/components/effects/AnimatedCounter";
 
-const TYPING_WORDS = ['AI Engineer', 'FinTech Developer', 'Full-Stack Builder', 'Quant Researcher'];
+const TYPING_WORDS = ["AI Engineer", "FinTech Developer", "Full-Stack Builder", "Quant Researcher"];
 
 const METRICS = [
-  { label: 'Projects', value: 9, suffix: '', prefix: '' },
-  { label: 'Uptime', value: 99.9, suffix: '%', prefix: '', decimals: 1 },
-  { label: 'ML Accuracy', value: 85, suffix: '%', prefix: '' },
-  { label: 'Years Experience', value: 2, suffix: '+', prefix: '' },
+  { label: "Systems Built", value: 18, suffix: "+", prefix: "" },
+  { label: "Uptime", value: 99.9, suffix: "%", prefix: "", decimals: 1 },
+  { label: "ML Accuracy", value: 85, suffix: "%", prefix: "" },
+  { label: "Years Experience", value: 2, suffix: "+", prefix: "" },
 ];
 
 const ORBS = [
-  { color: 'from-indigo-600/40 to-indigo-900/0', size: 600, top: '-10%', left: '-5%', delay: 0 },
-  { color: 'from-cyan-500/30 to-cyan-900/0', size: 500, top: '40%', right: '-10%', delay: 2 },
-  { color: 'from-purple-600/30 to-purple-900/0', size: 400, bottom: '-5%', left: '30%', delay: 4 },
+  { color: "from-indigo-600/40 to-indigo-900/0", size: 600, top: "-10%", left: "-5%", delay: 0 },
+  { color: "from-cyan-500/30 to-cyan-900/0", size: 500, top: "40%", right: "-10%", delay: 2 },
+  { color: "from-purple-600/30 to-purple-900/0", size: 400, bottom: "-5%", left: "30%", delay: 4 },
 ];
 
 export default function Hero() {
   const scrollToProjects = () => {
-    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -59,24 +59,13 @@ export default function Hero() {
             duration: 8 + i * 2,
             delay: orb.delay,
             repeat: Infinity,
-            ease: 'easeInOut',
+            ease: "easeInOut",
           }}
         />
       ))}
 
       {/* Content */}
       <div className="relative z-10 max-w-6xl mx-auto px-6 py-32 text-center">
-        {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-300 text-sm font-medium mb-8"
-        >
-          <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-          Available for new opportunities
-        </motion.div>
-
         {/* Typing role */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -106,8 +95,8 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.35 }}
           className="max-w-2xl mx-auto text-lg md:text-xl text-slate-400 leading-relaxed mb-12"
         >
-          Building next-gen AI trading systems, quantitative models, and full-stack
-          platforms that push the boundaries of what&apos;s possible.
+          I work at the intersection of AI and financial systems — building trading infrastructure,
+          quantitative models, and full-stack platforms that perform at scale.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -190,9 +179,9 @@ export default function Hero() {
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
           className="text-slate-500 hover:text-indigo-400 transition-colors cursor-pointer"
-          onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+          onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
         >
           <ArrowDown size={22} />
         </motion.div>

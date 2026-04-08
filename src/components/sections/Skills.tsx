@@ -1,25 +1,34 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState } from "react";
+import { motion } from "framer-motion";
 import {
-  RadarChart, PolarGrid, PolarAngleAxis, Radar, ResponsiveContainer, Tooltip,
-  BarChart, Bar, XAxis, YAxis, Cell,
-} from 'recharts';
-import ScrollReveal from '@/components/effects/ScrollReveal';
-import { skillCategories, radarData } from '@/data/skills';
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  Radar,
+  ResponsiveContainer,
+  Tooltip,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Cell,
+} from "recharts";
+import ScrollReveal from "@/components/effects/ScrollReveal";
+import { skillCategories, radarData } from "@/data/skills";
 
 const CATEGORY_COLORS: Record<string, string> = {
-  'ai-ml': '#6366f1',
-  'backend': '#22d3ee',
-  'frontend': '#a855f7',
-  'trading': '#f59e0b',
-  'devops': '#10b981',
-  'data': '#ec4899',
+  "ai-ml": "#6366f1",
+  backend: "#22d3ee",
+  frontend: "#a855f7",
+  trading: "#f59e0b",
+  devops: "#10b981",
+  data: "#ec4899",
 };
 
 export default function Skills() {
-  const [activeCategory, setActiveCategory] = useState('ai-ml');
+  const [activeCategory, setActiveCategory] = useState("ai-ml");
 
   const currentCat = skillCategories.find((c) => c.id === activeCategory)!;
   const barColor = CATEGORY_COLORS[activeCategory];
@@ -43,7 +52,7 @@ export default function Skills() {
             Skills <span className="gradient-text">Dashboard</span>
           </h2>
           <p className="text-slate-400 max-w-lg mx-auto">
-            6 technical domains, 36+ skills. Click a category to explore the breakdown.
+            Six technical domains. Click a category to explore the breakdown.
           </p>
         </ScrollReveal>
 
@@ -55,10 +64,7 @@ export default function Skills() {
               <ResponsiveContainer width="100%" height={320}>
                 <RadarChart data={radarData}>
                   <PolarGrid stroke="rgba(99,102,241,0.2)" />
-                  <PolarAngleAxis
-                    dataKey="category"
-                    tick={{ fill: '#94a3b8', fontSize: 12 }}
-                  />
+                  <PolarAngleAxis dataKey="category" tick={{ fill: "#94a3b8", fontSize: 12 }} />
                   <Radar
                     name="Score"
                     dataKey="score"
@@ -69,13 +75,13 @@ export default function Skills() {
                   />
                   <Tooltip
                     contentStyle={{
-                      background: '#0f0f1a',
-                      border: '1px solid rgba(99,102,241,0.3)',
+                      background: "#0f0f1a",
+                      border: "1px solid rgba(99,102,241,0.3)",
                       borderRadius: 8,
-                      color: '#f8fafc',
+                      color: "#f8fafc",
                     }}
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    formatter={(val: any) => [`${val ?? 0}/100`, 'Score']}
+                    formatter={(val: any) => [`${val ?? 0}/100`, "Score"]}
                   />
                 </RadarChart>
               </ResponsiveContainer>
@@ -93,13 +99,17 @@ export default function Skills() {
                     onClick={() => setActiveCategory(cat.id)}
                     className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 ${
                       activeCategory === cat.id
-                        ? 'text-white shadow-md'
-                        : 'text-slate-400 hover:text-white hover:bg-white/5'
+                        ? "text-white shadow-md"
+                        : "text-slate-400 hover:text-white hover:bg-white/5"
                     }`}
-                    style={activeCategory === cat.id ? {
-                      background: CATEGORY_COLORS[cat.id],
-                      boxShadow: `0 0 15px ${CATEGORY_COLORS[cat.id]}40`,
-                    } : {}}
+                    style={
+                      activeCategory === cat.id
+                        ? {
+                            background: CATEGORY_COLORS[cat.id],
+                            boxShadow: `0 0 15px ${CATEGORY_COLORS[cat.id]}40`,
+                          }
+                        : {}
+                    }
                   >
                     {cat.label}
                   </button>
@@ -122,7 +132,7 @@ export default function Skills() {
                     <XAxis
                       type="number"
                       domain={[0, 100]}
-                      tick={{ fill: '#4b5563', fontSize: 10 }}
+                      tick={{ fill: "#4b5563", fontSize: 10 }}
                       axisLine={false}
                       tickLine={false}
                     />
@@ -130,28 +140,24 @@ export default function Skills() {
                       dataKey="name"
                       type="category"
                       width={90}
-                      tick={{ fill: '#94a3b8', fontSize: 11 }}
+                      tick={{ fill: "#94a3b8", fontSize: 11 }}
                       axisLine={false}
                       tickLine={false}
                     />
                     <Tooltip
                       contentStyle={{
-                        background: '#0f0f1a',
-                        border: '1px solid rgba(99,102,241,0.3)',
+                        background: "#0f0f1a",
+                        border: "1px solid rgba(99,102,241,0.3)",
                         borderRadius: 8,
-                        color: '#f8fafc',
+                        color: "#f8fafc",
                         fontSize: 12,
                       }}
                       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                      formatter={(val: any) => [`${val ?? 0}%`, 'Proficiency']}
+                      formatter={(val: any) => [`${val ?? 0}%`, "Proficiency"]}
                     />
                     <Bar dataKey="level" radius={[0, 4, 4, 0]} maxBarSize={16}>
                       {barData.map((_, idx) => (
-                        <Cell
-                          key={`cell-${idx}`}
-                          fill={barColor}
-                          fillOpacity={0.7 + idx * 0.05}
-                        />
+                        <Cell key={`cell-${idx}`} fill={barColor} fillOpacity={0.7 + idx * 0.05} />
                       ))}
                     </Bar>
                   </BarChart>
@@ -168,11 +174,15 @@ export default function Skills() {
               <div key={cat.id} className="glass-card p-4 text-center group">
                 <div
                   className="w-2 h-2 rounded-full mx-auto mb-2"
-                  style={{ background: CATEGORY_COLORS[cat.id], boxShadow: `0 0 8px ${CATEGORY_COLORS[cat.id]}` }}
+                  style={{
+                    background: CATEGORY_COLORS[cat.id],
+                    boxShadow: `0 0 8px ${CATEGORY_COLORS[cat.id]}`,
+                  }}
                 />
                 <div className="text-white text-xs font-bold mb-1">{cat.label}</div>
                 <div className="text-slate-500 text-xs">
-                  {Math.round(cat.skills.reduce((sum, s) => sum + s.level, 0) / cat.skills.length)}% avg
+                  {Math.round(cat.skills.reduce((sum, s) => sum + s.level, 0) / cat.skills.length)}%
+                  avg
                 </div>
               </div>
             ))}

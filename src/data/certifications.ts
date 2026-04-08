@@ -1,55 +1,60 @@
-export type CertCategory = 'Certification' | 'Achievement';
+export type CertCategory = "Certification" | "Achievement";
 
 export interface Certification {
   id: string;
   name: string;
   issuer: string;
-  year: string;
   category: CertCategory;
-  color: string; // accent color
 }
 
 export const certifications: Certification[] = [
+  { id: "python-ds", name: "Python For Data Science", issuer: "IBM", category: "Certification" },
   {
-    id: 'mathlab-ml',
-    name: 'Machine Learning with MATLAB',
-    issuer: 'MathWorks',
-    year: '2024',
-    category: 'Certification',
-    color: '#e84040',
+    id: "ai-fund",
+    name: "Fundamentals of Artificial Intelligence",
+    issuer: "NPTEL",
+    category: "Certification",
   },
   {
-    id: 'cisco-cyber',
-    name: 'Cybersecurity Essentials',
-    issuer: 'Cisco',
-    year: '2023',
-    category: 'Certification',
-    color: '#1ba0d7',
+    id: "mathlab-ml",
+    name: "Machine Learning with MATLAB",
+    issuer: "MathWorks",
+    category: "Certification",
+  },
+  { id: "cisco-cyber", name: "CISCO Cybersecurity", issuer: "Cisco", category: "Certification" },
+  {
+    id: "rpa",
+    name: "Data Analysis with Robotic Process",
+    issuer: "UiPath",
+    category: "Certification",
   },
   {
-    id: 'hackerrank-ps',
-    name: 'Problem Solving (Intermediate)',
-    issuer: 'HackerRank',
-    year: '2023',
-    category: 'Certification',
-    color: '#00ea64',
+    id: "sci-python",
+    name: "Scientific Computing with Python",
+    issuer: "freeCodeCamp",
+    category: "Certification",
   },
   {
-    id: 'iamneo-best',
-    name: 'Best Project Award',
-    issuer: 'IAMNeo',
-    year: '2024',
-    category: 'Achievement',
-    color: '#f59e0b',
+    id: "cad",
+    name: "2D-3D CAD Modeling of Building Design",
+    issuer: "AutoCAD",
+    category: "Certification",
   },
+  { id: "frontend", name: "Front End Development", issuer: "Meta", category: "Certification" },
   {
-    id: 'acceler-ai',
-    name: 'Acceler-AI Hackathon',
-    issuer: 'Regional AI Hackathon',
-    year: '2025',
-    category: 'Achievement',
-    color: '#a855f7',
+    id: "networking",
+    name: "Network and Communications",
+    issuer: "Cisco",
+    category: "Certification",
   },
+  { id: "hr-java", name: "Java (Basic)", issuer: "HackerRank", category: "Certification" },
+  {
+    id: "hr-ps",
+    name: "Problem Solving (Intermediate)",
+    issuer: "HackerRank",
+    category: "Certification",
+  },
+  { id: "iamneo", name: "Best Project Award", issuer: "IAMNeo", category: "Achievement" },
 ];
 
 export const CERT_TOTAL = 12;

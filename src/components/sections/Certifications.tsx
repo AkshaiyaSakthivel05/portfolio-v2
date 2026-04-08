@@ -1,131 +1,238 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Award, Trophy, Star } from 'lucide-react';
-import ScrollReveal from '@/components/effects/ScrollReveal';
-import { certifications, CERT_TOTAL, type CertCategory } from '@/data/certifications';
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Award, Trophy, ExternalLink } from "lucide-react";
+import ScrollReveal from "@/components/effects/ScrollReveal";
+import { certifications, CERT_TOTAL } from "@/data/certifications";
 
-type FilterType = 'All' | CertCategory;
-const FILTERS: FilterType[] = ['All', 'Certification', 'Achievement'];
+const HOLD_MS = 3200;
 
-export default function Certifications() {
-  const [filter, setFilter] = useState<FilterType>('All');
+const ISSUER_DOMAINS: Record<string, string> = {
+  IBM: "ibm.com",
+  NPTEL: "nptel.ac.in",
+  MathWorks: "mathworks.com",
+  Cisco: "cisco.com",
+  UiPath: "uipath.com",
+  freeCodeCamp: "freecodecamp.org",
+  AutoCAD: "autodesk.com",
+  Meta: "meta.com",
+  HackerRank: "hackerrank.com",
+  IAMNeo: "iamneo.ai",
+};
 
-  const filtered = filter === 'All'
-    ? certifications
-    : certifications.filter((c) => c.category === filter);
+const ISSUER_COLORS: Record<string, string> = {
+  IBM: "text-blue-400   bg-blue-500/10   border-blue-500/20",
+  NPTEL: "text-orange-400 bg-orange-500/10 border-orange-500/20",
+  MathWorks: "text-red-400    bg-red-500/10    border-red-500/20",
+  Cisco: "text-cyan-400   bg-cyan-500/10   border-cyan-500/20",
+  UiPath: "text-orange-400 bg-orange-500/10 border-orange-500/20",
+  freeCodeCamp: "text-green-400  bg-green-500/10  border-green-500/20",
+  AutoCAD: "text-red-400    bg-red-500/10    border-red-500/20",
+  Meta: "text-blue-400   bg-blue-500/10   border-blue-500/20",
+  HackerRank: "text-green-400  bg-green-500/10  border-green-500/20",
+  IAMNeo: "text-amber-400  bg-amber-500/10  border-amber-500/20",
+};
+
+function LogoImage({ issuer, idx }: { issuer: string; idx: number }) {
+  const [errored, setErrored] = useState(false);
+  const domain = ISSUER_DOMAINS[issuer];
+  const isAchievement = issuer === "IAMNeo";
+
+  // reset error state whenever the cert changes
+  useEffect(() => {
+    setErrored(false);
+  }, [idx]);
 
   return (
-    <section id="certifications" className="relative py-28 bg-[#080810] overflow-hidden">
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={idx}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.35 }}
+        className="w-full h-full flex items-center justify-center"
+      >
+        {!errored && domain ? (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img
+            src={`https://logo.clearbit.com/${domain}`}
+            alt={issuer}
+            onError={() => setErrored(true)}
+            className="max-h-16 max-w-[160px] object-contain filter brightness-90"
+          />
+        ) : (
+          <div className="flex flex-col items-center gap-2 opacity-40">
+            {isAchievement ? (
+              <Trophy size={36} className="text-amber-400" />
+            ) : (
+              <Award size={36} className="text-indigo-400" />
+            )}
+            <span className="text-xs text-slate-500 font-medium">{issuer}</span>
+          </div>
+        )}
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
+export default function Certifications() {
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  const cert = certifications[index];
+  const isAchievement = cert.category === "Achievement";
+  const issuerStyle =
+    ISSUER_COLORS[cert.issuer] ?? "text-indigo-400 bg-indigo-500/10 border-indigo-500/20";
+  const chars = cert.name.split("");
+
+  useEffect(() => {
+    if (paused) return;
+    const t = setInterval(() => setIndex((i) => (i + 1) % certifications.length), HOLD_MS);
+    return () => clearInterval(t);
+  }, [paused]);
+
+  return (
+    <section id="certifications" className="relative py-24 bg-[#080810] overflow-hidden">
       <div className="absolute inset-0 grid-dots opacity-20" />
 
-      {/* Background orb */}
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, rgba(168,85,247,0.06) 0%, transparent 70%)',
-        }}
-      />
-
-      <div className="relative z-10 max-w-6xl mx-auto px-6">
+      <div className="relative z-10 max-w-3xl mx-auto px-6">
         {/* Header */}
-        <ScrollReveal className="text-center mb-12">
+        <ScrollReveal className="text-center mb-10">
           <span className="text-indigo-400 font-mono text-sm font-semibold tracking-wider uppercase mb-3 block">
             Credentials
           </span>
-          <h2 className="section-heading mb-4">
+          <h2 className="section-heading mb-3">
             Certifications <span className="gradient-text">&amp; Achievements</span>
           </h2>
-          <p className="text-slate-400 max-w-lg mx-auto">
-            Continuous learning and professional development across multiple domains.
+          <p className="text-slate-500 text-sm max-w-md mx-auto">
+            Continuous learning across AI, security, data, and software development.
           </p>
         </ScrollReveal>
 
-        {/* Filter tabs */}
-        <ScrollReveal delay={0.1} className="flex flex-wrap gap-2 justify-center mb-10">
-          {FILTERS.map((f) => (
-            <button
-              key={f}
-              onClick={() => setFilter(f)}
-              className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
-                filter === f
-                  ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/25'
-                  : 'border border-indigo-500/20 text-slate-400 hover:border-indigo-500/50 hover:text-white hover:bg-indigo-500/10'
-              }`}
-            >
-              {f}
-            </button>
-          ))}
+        {/* ── Card ── */}
+        <ScrollReveal delay={0.1}>
+          <div
+            className="relative rounded-2xl border border-indigo-500/20 bg-[#07070f] overflow-hidden group"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+          >
+            {/* ── Top 60%: logo area ── */}
+            <div className="relative h-44 flex items-center justify-center border-b border-indigo-500/10 bg-[#09090f]">
+              {/* subtle radial glow behind logo */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div
+                  className={`w-32 h-32 rounded-full blur-2xl opacity-20 ${isAchievement ? "bg-amber-500" : "bg-indigo-500"}`}
+                />
+              </div>
+              <div className="relative z-10 w-full h-full">
+                <LogoImage issuer={cert.issuer} idx={index} />
+              </div>
+            </div>
+
+            {/* ── Bottom 40%: departure board text ── */}
+            <div className="px-7 pt-5 pb-4" style={{ perspective: "800px" }}>
+              {/* Issuer badge + category */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={`meta-${index}`}
+                  initial={{ opacity: 0, y: -5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 5 }}
+                  transition={{ duration: 0.2 }}
+                  className="flex items-center gap-2 mb-3"
+                >
+                  {isAchievement ? (
+                    <Trophy size={12} className="text-amber-400" />
+                  ) : (
+                    <Award size={12} className="text-indigo-400" />
+                  )}
+                  <span
+                    className={`text-[9px] font-semibold px-2 py-0.5 rounded-full border ${issuerStyle}`}
+                  >
+                    {cert.issuer}
+                  </span>
+                  <span className="text-[9px] text-slate-600 font-medium uppercase tracking-wider">
+                    {cert.category}
+                  </span>
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Cert name — character flip */}
+              <div
+                className="font-semibold text-white leading-snug mb-4 min-h-[2.5rem]"
+                style={{ fontSize: "clamp(0.95rem, 2.5vw, 1.2rem)", perspective: "600px" }}
+              >
+                <AnimatePresence mode="wait">
+                  <motion.span key={`name-${index}`} className="inline">
+                    {chars.map((char, i) => (
+                      <motion.span
+                        key={i}
+                        initial={{ rotateX: -90, opacity: 0 }}
+                        animate={{ rotateX: 0, opacity: 1 }}
+                        transition={{ delay: i * 0.02, duration: 0.25, ease: "easeOut" }}
+                        style={{
+                          display: "inline-block",
+                          transformOrigin: "top center",
+                          whiteSpace: "pre",
+                        }}
+                      >
+                        {char}
+                      </motion.span>
+                    ))}
+                  </motion.span>
+                </AnimatePresence>
+              </div>
+
+              {/* Hidden credential link — reveals on hover */}
+              <div className="overflow-hidden h-5">
+                <motion.div
+                  initial={false}
+                  animate={{ y: paused ? 0 : 20, opacity: paused ? 1 : 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="flex items-center gap-1 text-[11px] text-indigo-400 hover:text-indigo-300 cursor-pointer"
+                >
+                  <ExternalLink size={10} />
+                  <span>View credential</span>
+                </motion.div>
+              </div>
+            </div>
+
+            {/* Progress bar */}
+            <div className="h-px bg-indigo-500/10 mx-7 relative overflow-hidden rounded-full">
+              <motion.div
+                className="absolute inset-y-0 left-0 bg-indigo-500/50"
+                animate={{ width: `${((index + 1) / certifications.length) * 100}%` }}
+                transition={{ duration: 0.4, ease: "easeInOut" }}
+              />
+            </div>
+
+            {/* Dot indicators */}
+            <div className="flex items-center justify-center gap-1.5 py-3">
+              {certifications.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setIndex(i)}
+                  className={`rounded-full transition-all duration-300 ${
+                    i === index
+                      ? "w-5 h-1.5 bg-indigo-400"
+                      : "w-1.5 h-1.5 bg-slate-700 hover:bg-slate-500"
+                  }`}
+                  aria-label={`Go to cert ${i + 1}`}
+                />
+              ))}
+            </div>
+          </div>
         </ScrollReveal>
 
-        {/* Cards grid */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={filter}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -16 }}
-            transition={{ duration: 0.3 }}
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10"
-          >
-            {filtered.map((cert, i) => (
-              <motion.div
-                key={cert.id}
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.07 }}
-                className="glass-card p-5 group relative overflow-hidden"
-                style={{ borderTop: `2px solid ${cert.color}` }}
-              >
-                {/* Glow on hover */}
-                <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-xl"
-                  style={{ background: `radial-gradient(circle at 50% 0%, ${cert.color}15 0%, transparent 70%)` }}
-                />
-
-                <div className="relative z-10 flex items-start gap-4">
-                  {/* Icon */}
-                  <div
-                    className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center mt-0.5"
-                    style={{ background: `${cert.color}20`, border: `1px solid ${cert.color}40` }}
-                  >
-                    {cert.category === 'Achievement' ? (
-                      <Trophy size={18} style={{ color: cert.color }} />
-                    ) : (
-                      <Award size={18} style={{ color: cert.color }} />
-                    )}
-                  </div>
-
-                  {/* Content */}
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1 flex-wrap">
-                      <span
-                        className="text-xs font-semibold px-2 py-0.5 rounded-full"
-                        style={{ background: `${cert.color}20`, color: cert.color }}
-                      >
-                        {cert.category}
-                      </span>
-                      <span className="text-xs text-slate-600">{cert.year}</span>
-                    </div>
-                    <h3 className="text-sm font-bold text-white mb-1 leading-snug group-hover:text-indigo-300 transition-colors">
-                      {cert.name}
-                    </h3>
-                    <p className="text-xs text-slate-500 font-medium">{cert.issuer}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Total count banner */}
-        <ScrollReveal delay={0.2}>
-          <div className="glass-card px-8 py-5 flex items-center justify-center gap-3 max-w-sm mx-auto">
-            <Star size={18} className="text-indigo-400" />
-            <span className="text-white font-semibold">
-              <span className="gradient-text text-xl font-black">{CERT_TOTAL}</span>
-              {' '}Professional Certifications Earned
+        {/* Count banner */}
+        <ScrollReveal delay={0.15} className="flex justify-center mt-8">
+          <div className="flex items-center gap-3 py-3.5 px-7 rounded-2xl border border-indigo-500/20 bg-indigo-500/5">
+            <Award size={16} className="text-indigo-400" />
+            <span className="text-white font-semibold text-sm">
+              <span className="gradient-text text-lg font-black">{CERT_TOTAL}</span> Professional
+              Certifications &amp; Awards
             </span>
           </div>
         </ScrollReveal>
