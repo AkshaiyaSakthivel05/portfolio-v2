@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { ReactNode, useRef } from 'react';
-import { cn } from '@/lib/utils';
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { ReactNode, useRef } from "react";
+import { cn } from "@/lib/utils";
 
 interface GlowCardProps {
   children: ReactNode;
@@ -13,8 +13,8 @@ interface GlowCardProps {
 
 export default function GlowCard({
   children,
-  className = '',
-  glowColor = 'rgba(99,102,241,0.3)',
+  className = "",
+  glowColor = "rgba(99,102,241,0.3)",
   tilt = true,
 }: GlowCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -24,8 +24,8 @@ export default function GlowCard({
   const springX = useSpring(x, { stiffness: 150, damping: 20 });
   const springY = useSpring(y, { stiffness: 150, damping: 20 });
 
-  const rotateX = useTransform(springY, [-0.5, 0.5], ['8deg', '-8deg']);
-  const rotateY = useTransform(springX, [-0.5, 0.5], ['-8deg', '8deg']);
+  const rotateX = useTransform(springY, [-0.5, 0.5], ["8deg", "-8deg"]);
+  const rotateY = useTransform(springX, [-0.5, 0.5], ["-8deg", "8deg"]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!tilt || !cardRef.current) return;
@@ -46,13 +46,10 @@ export default function GlowCard({
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={tilt ? { rotateX, rotateY, transformStyle: 'preserve-3d' } : {}}
+      style={tilt ? { rotateX, rotateY, transformStyle: "preserve-3d" } : {}}
       whileHover={{ scale: 1.02 }}
-      transition={{ scale: { type: 'spring', stiffness: 300, damping: 20 } }}
-      className={cn(
-        'glass-card relative overflow-hidden',
-        className
-      )}
+      transition={{ scale: { type: "spring", stiffness: 300, damping: 20 } }}
+      className={cn("glass-card relative overflow-hidden", className)}
     >
       {/* Glow overlay on hover */}
       <div

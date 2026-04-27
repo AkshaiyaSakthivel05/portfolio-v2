@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { Briefcase, GraduationCap, Calendar, MapPin } from 'lucide-react';
-import ScrollReveal from '@/components/effects/ScrollReveal';
-import { experiences } from '@/data/experience';
+import { motion } from "framer-motion";
+import { Briefcase, GraduationCap, Calendar, MapPin } from "lucide-react";
+import ScrollReveal from "@/components/effects/ScrollReveal";
+import { experiences } from "@/data/experience";
 
 export default function Experience() {
   return (
@@ -29,29 +29,33 @@ export default function Experience() {
           <div className="space-y-10">
             {experiences.map((exp, i) => {
               const isLeft = i % 2 === 0;
-              const Icon = exp.type === 'work' ? Briefcase : GraduationCap;
-              const iconColor = exp.type === 'work' ? 'bg-indigo-600' : 'bg-purple-600';
+              const Icon = exp.type === "work" ? Briefcase : GraduationCap;
+              const iconColor = exp.type === "work" ? "bg-indigo-600" : "bg-purple-600";
 
               return (
                 <motion.div
                   key={exp.id}
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-50px' }}
+                  viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.6, delay: i * 0.1 }}
                   className={`relative flex items-start gap-6 md:gap-0 ${
-                    isLeft ? 'md:flex-row' : 'md:flex-row-reverse'
+                    isLeft ? "md:flex-row" : "md:flex-row-reverse"
                   }`}
                 >
                   {/* Icon dot */}
                   <div className="relative z-10 flex-shrink-0 ml-0 md:ml-0">
-                    <div className={`w-12 h-12 rounded-full ${iconColor} flex items-center justify-center glow-indigo md:absolute md:left-1/2 md:-translate-x-1/2`}>
+                    <div
+                      className={`w-12 h-12 rounded-full ${iconColor} flex items-center justify-center glow-indigo md:absolute md:left-1/2 md:-translate-x-1/2`}
+                    >
                       <Icon size={18} className="text-white" />
                     </div>
                   </div>
 
                   {/* Card */}
-                  <div className={`flex-1 ${isLeft ? 'md:pr-16 md:pl-0' : 'md:pl-16 md:pr-0'} pl-0`}>
+                  <div
+                    className={`flex-1 ${isLeft ? "md:pr-16 md:pl-0" : "md:pl-16 md:pr-0"} pl-0`}
+                  >
                     <div className="glass-card p-6">
                       {/* Role + company */}
                       <div className="mb-3">

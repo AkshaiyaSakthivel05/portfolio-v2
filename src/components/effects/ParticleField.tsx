@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 interface Particle {
   x: number;
@@ -12,7 +12,7 @@ interface Particle {
   color: string;
 }
 
-const COLORS = ['#6366f1', '#22d3ee', '#a855f7'];
+const COLORS = ["#6366f1", "#22d3ee", "#a855f7"];
 
 export default function ParticleField({ count = 60 }: { count?: number }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -22,7 +22,7 @@ export default function ParticleField({ count = 60 }: { count?: number }) {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     const resize = () => {
@@ -30,7 +30,7 @@ export default function ParticleField({ count = 60 }: { count?: number }) {
       canvas.height = canvas.offsetHeight;
     };
     resize();
-    window.addEventListener('resize', resize);
+    window.addEventListener("resize", resize);
 
     // Init particles
     particlesRef.current = Array.from({ length: count }, () => ({
@@ -76,7 +76,7 @@ export default function ParticleField({ count = 60 }: { count?: number }) {
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
-            ctx.strokeStyle = '#6366f1';
+            ctx.strokeStyle = "#6366f1";
             ctx.globalAlpha = (1 - dist / 100) * 0.15;
             ctx.lineWidth = 0.5;
             ctx.stroke();
@@ -91,15 +91,10 @@ export default function ParticleField({ count = 60 }: { count?: number }) {
     draw();
 
     return () => {
-      window.removeEventListener('resize', resize);
+      window.removeEventListener("resize", resize);
       cancelAnimationFrame(animRef.current);
     };
   }, [count]);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      className="pointer-events-none absolute inset-0 h-full w-full"
-    />
-  );
+  return <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 h-full w-full" />;
 }

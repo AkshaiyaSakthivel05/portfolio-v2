@@ -1,11 +1,20 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle, Linkedin, Github } from 'lucide-react';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import ScrollReveal from '@/components/effects/ScrollReveal';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  CheckCircle,
+  AlertCircle,
+  Linkedin,
+  Github,
+} from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import ScrollReveal from "@/components/effects/ScrollReveal";
 
 interface FormData {
   name: string;
@@ -14,71 +23,71 @@ interface FormData {
   message: string;
 }
 
-type FormStatus = 'idle' | 'loading' | 'success' | 'error';
+type FormStatus = "idle" | "loading" | "success" | "error";
 
 const CONTACT_INFO = [
   {
     icon: Mail,
-    label: 'Email',
-    value: 'aks05.sk.ai@gmail.com',
-    href: 'mailto:aks05.sk.ai@gmail.com',
-    color: 'text-indigo-400',
-    bg: 'bg-indigo-500/10',
+    label: "Email",
+    value: "aks05.sk.ai@gmail.com",
+    href: "mailto:aks05.sk.ai@gmail.com",
+    color: "text-indigo-400",
+    bg: "bg-indigo-500/10",
   },
   {
     icon: Phone,
-    label: 'UAE',
-    value: '+971 50 359 2275',
-    href: 'tel:+971503592275',
-    color: 'text-cyan-400',
-    bg: 'bg-cyan-500/10',
+    label: "UAE",
+    value: "+971 50 359 2275",
+    href: "tel:+971503592275",
+    color: "text-cyan-400",
+    bg: "bg-cyan-500/10",
   },
   {
     icon: Phone,
-    label: 'India',
-    value: '+91 90428 48703',
-    href: 'tel:+919042848703',
-    color: 'text-cyan-400',
-    bg: 'bg-cyan-500/10',
+    label: "India",
+    value: "+91 90428 48703",
+    href: "tel:+919042848703",
+    color: "text-cyan-400",
+    bg: "bg-cyan-500/10",
   },
   {
     icon: MapPin,
-    label: 'Location',
-    value: 'Abu Dhabi, UAE',
-    href: '#',
-    color: 'text-purple-400',
-    bg: 'bg-purple-500/10',
+    label: "Location",
+    value: "Abu Dhabi, UAE",
+    href: "#",
+    color: "text-purple-400",
+    bg: "bg-purple-500/10",
   },
   {
     icon: Linkedin,
-    label: 'LinkedIn',
-    value: 'akshaiyasakthivel-aa1053240',
-    href: 'https://linkedin.com/in/akshaiyasakthivel-aa1053240',
-    color: 'text-blue-400',
-    bg: 'bg-blue-500/10',
+    label: "LinkedIn",
+    value: "akshaiyasakthivel-aa1053240",
+    href: "https://linkedin.com/in/akshaiyasakthivel-aa1053240",
+    color: "text-blue-400",
+    bg: "bg-blue-500/10",
   },
   {
     icon: Github,
-    label: 'GitHub (Main)',
-    value: 'AkshaiyaSakthivel05',
-    href: 'https://github.com/AkshaiyaSakthivel05',
-    color: 'text-slate-300',
-    bg: 'bg-slate-500/10',
+    label: "GitHub (Main)",
+    value: "AkshaiyaSakthivel05",
+    href: "https://github.com/AkshaiyaSakthivel05",
+    color: "text-slate-300",
+    bg: "bg-slate-500/10",
   },
   {
     icon: Github,
-    label: 'GitHub (Research)',
-    value: 'AkshaiyaSakthivel003',
-    href: 'https://github.com/AkshaiyaSakthivel003',
-    color: 'text-slate-400',
-    bg: 'bg-slate-500/10',
+    label: "GitHub (Research)",
+    value: "AkshaiyaSakthivel003",
+    href: "https://github.com/AkshaiyaSakthivel003",
+    color: "text-slate-400",
+    bg: "bg-slate-500/10",
   },
 ];
 
 export default function Contact() {
-  const [form, setForm] = useState<FormData>({ name: '', email: '', subject: '', message: '' });
-  const [status, setStatus] = useState<FormStatus>('idle');
-  const [errorMsg, setErrorMsg] = useState('');
+  const [form, setForm] = useState<FormData>({ name: "", email: "", subject: "", message: "" });
+  const [status, setStatus] = useState<FormStatus>("idle");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -86,28 +95,28 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus('loading');
-    setErrorMsg('');
+    setStatus("loading");
+    setErrorMsg("");
 
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || 'Failed to send message');
+        throw new Error(data.error || "Failed to send message");
       }
 
-      setStatus('success');
-      setForm({ name: '', email: '', subject: '', message: '' });
-      setTimeout(() => setStatus('idle'), 6000);
+      setStatus("success");
+      setForm({ name: "", email: "", subject: "", message: "" });
+      setTimeout(() => setStatus("idle"), 6000);
     } catch (err) {
-      setStatus('error');
-      setErrorMsg(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
-      setTimeout(() => setStatus('idle'), 6000);
+      setStatus("error");
+      setErrorMsg(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+      setTimeout(() => setStatus("idle"), 6000);
     }
   };
 
@@ -128,7 +137,8 @@ export default function Contact() {
             Let&apos;s <span className="gradient-text">Collaborate</span>
           </h2>
           <p className="text-slate-400 max-w-lg mx-auto">
-            Whether it&apos;s a trading system, AI project, or just a conversation — I&apos;d love to hear from you.
+            Whether it&apos;s a trading system, AI project, or just a conversation — I&apos;d love
+            to hear from you.
           </p>
         </ScrollReveal>
 
@@ -141,11 +151,13 @@ export default function Contact() {
                 <a
                   key={info.label}
                   href={info.href}
-                  target={info.href.startsWith('http') ? '_blank' : undefined}
+                  target={info.href.startsWith("http") ? "_blank" : undefined}
                   rel="noopener noreferrer"
                   className="flex items-center gap-4 glass-card p-4 group"
                 >
-                  <div className={`w-10 h-10 rounded-lg ${info.bg} flex items-center justify-center flex-shrink-0`}>
+                  <div
+                    className={`w-10 h-10 rounded-lg ${info.bg} flex items-center justify-center flex-shrink-0`}
+                  >
                     <info.icon size={18} className={info.color} />
                   </div>
                   <div>
@@ -165,7 +177,7 @@ export default function Contact() {
               <h3 className="text-white font-semibold text-lg mb-6">Send a Message</h3>
 
               <AnimatePresence mode="wait">
-                {status === 'success' && (
+                {status === "success" && (
                   <motion.div
                     key="success"
                     initial={{ opacity: 0, y: -10 }}
@@ -177,7 +189,7 @@ export default function Contact() {
                     Message sent! I&apos;ll get back to you soon.
                   </motion.div>
                 )}
-                {status === 'error' && (
+                {status === "error" && (
                   <motion.div
                     key="error"
                     initial={{ opacity: 0, y: -10 }}
@@ -194,7 +206,9 @@ export default function Contact() {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-slate-400 text-xs font-medium mb-1.5 block">Name *</label>
+                    <label className="text-slate-400 text-xs font-medium mb-1.5 block">
+                      Name *
+                    </label>
                     <Input
                       name="name"
                       value={form.name}
@@ -205,7 +219,9 @@ export default function Contact() {
                     />
                   </div>
                   <div>
-                    <label className="text-slate-400 text-xs font-medium mb-1.5 block">Email *</label>
+                    <label className="text-slate-400 text-xs font-medium mb-1.5 block">
+                      Email *
+                    </label>
                     <Input
                       name="email"
                       type="email"
@@ -218,7 +234,9 @@ export default function Contact() {
                   </div>
                 </div>
                 <div>
-                  <label className="text-slate-400 text-xs font-medium mb-1.5 block">Subject *</label>
+                  <label className="text-slate-400 text-xs font-medium mb-1.5 block">
+                    Subject *
+                  </label>
                   <Input
                     name="subject"
                     value={form.subject}
@@ -229,7 +247,9 @@ export default function Contact() {
                   />
                 </div>
                 <div>
-                  <label className="text-slate-400 text-xs font-medium mb-1.5 block">Message *</label>
+                  <label className="text-slate-400 text-xs font-medium mb-1.5 block">
+                    Message *
+                  </label>
                   <Textarea
                     name="message"
                     value={form.message}
@@ -242,10 +262,10 @@ export default function Contact() {
                 </div>
                 <button
                   type="submit"
-                  disabled={status === 'loading'}
+                  disabled={status === "loading"}
                   className="w-full btn-gradient flex items-center justify-center gap-2 py-3.5 rounded-xl text-white font-semibold text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {status === 'loading' ? (
+                  {status === "loading" ? (
                     <>
                       <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                       Sending...

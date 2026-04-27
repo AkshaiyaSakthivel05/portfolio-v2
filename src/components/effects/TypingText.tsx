@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 interface TypingTextProps {
   words: string[];
@@ -15,9 +15,9 @@ export default function TypingText({
   typingSpeed = 80,
   deletingSpeed = 50,
   pauseTime = 2000,
-  className = '',
+  className = "",
 }: TypingTextProps) {
-  const [displayText, setDisplayText] = useState('');
+  const [displayText, setDisplayText] = useState("");
   const [wordIndex, setWordIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isPaused, setIsPaused] = useState(false);

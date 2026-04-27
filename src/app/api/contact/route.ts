@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { Resend } from 'resend';
+import { NextRequest, NextResponse } from "next/server";
+import { Resend } from "resend";
 
 const rateLimitStore = new Map<string, number[]>();
 const RATE_LIMIT = 3;
@@ -7,13 +7,13 @@ const WINDOW_MS = 10 * 60 * 1000; // 10 minutes
 
 export async function POST(req: NextRequest) {
   try {
-    const ip = req.headers.get('x-forwarded-for')?.split(',')[0].trim() ?? 'unknown';
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
     const now = Date.now();
     const timestamps = (rateLimitStore.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
     if (timestamps.length >= RATE_LIMIT) {
       return NextResponse.json(
-        { error: 'Too many requests. Please wait before submitting again.' },
-        { status: 429 }
+        { error: "Too many requests. Please wait before submitting again." },
+        { status: 429 },
       );
     }
     rateLimitStore.set(ip, [...timestamps, now]);
@@ -22,24 +22,27 @@ export async function POST(req: NextRequest) {
     const { name, email, subject, message } = body;
 
     if (!name || !email || !subject || !message) {
-      return NextResponse.json({ error: 'All fields are required.' }, { status: 400 });
+      return NextResponse.json({ error: "All fields are required." }, { status: 400 });
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      return NextResponse.json({ error: 'Invalid email address.' }, { status: 400 });
+      return NextResponse.json({ error: "Invalid email address." }, { status: 400 });
     }
 
     if (!process.env.RESEND_API_KEY) {
-      console.log('[Contact Form] Dev mode — RESEND_API_KEY not set. Submission received from:', email);
+      console.log(
+        "[Contact Form] Dev mode — RESEND_API_KEY not set. Submission received from:",
+        email,
+      );
       return NextResponse.json({ success: true, dev: true });
     }
 
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     const { error } = await resend.emails.send({
-      from: 'Portfolio Contact <onboarding@resend.dev>',
-      to: ['aks05.sk.ai@gmail.com'],
+      from: "Portfolio Contact <onboarding@resend.dev>",
+      to: ["aks05.sk.ai@gmail.com"],
       replyTo: email,
       subject: `[Portfolio] ${subject} — from ${name}`,
       html: `
@@ -69,13 +72,13 @@ export async function POST(req: NextRequest) {
     });
 
     if (error) {
-      console.error('[Resend Error]', error);
-      return NextResponse.json({ error: 'Failed to send email.' }, { status: 500 });
+      console.error("[Resend Error]", error);
+      return NextResponse.json({ error: "Failed to send email." }, { status: 500 });
     }
 
     return NextResponse.json({ success: true });
   } catch (err) {
-    console.error('[Contact API Error]', err);
-    return NextResponse.json({ error: 'Internal server error.' }, { status: 500 });
+    console.error("[Contact API Error]", err);
+    return NextResponse.json({ error: "Internal server error." }, { status: 500 });
   }
 }

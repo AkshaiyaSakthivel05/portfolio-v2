@@ -1,13 +1,29 @@
-'use client';
+"use client";
 
-import ScrollReveal from '@/components/effects/ScrollReveal';
+import ScrollReveal from "@/components/effects/ScrollReveal";
 import {
-  SiPython, SiReact, SiNextdotjs, SiTypescript, SiJavascript,
-  SiFastapi, SiNodedotjs, SiDocker, SiMongodb, SiPostgresql,
-  SiPytorch, SiTensorflow, SiTailwindcss, SiSqlite, SiRedis,
-  SiGit, SiGithub, SiLinux, SiPandas, SiNumpy,
-} from 'react-icons/si';
-import { IconType } from 'react-icons';
+  SiPython,
+  SiReact,
+  SiNextdotjs,
+  SiTypescript,
+  SiJavascript,
+  SiFastapi,
+  SiNodedotjs,
+  SiDocker,
+  SiMongodb,
+  SiPostgresql,
+  SiPytorch,
+  SiTensorflow,
+  SiTailwindcss,
+  SiSqlite,
+  SiRedis,
+  SiGit,
+  SiGithub,
+  SiLinux,
+  SiPandas,
+  SiNumpy,
+} from "react-icons/si";
+import { IconType } from "react-icons";
 
 interface Tech {
   name: string;
@@ -16,29 +32,29 @@ interface Tech {
 }
 
 const ROW_1: Tech[] = [
-  { name: 'Python',       Icon: SiPython,      color: '#3776AB' },
-  { name: 'React',        Icon: SiReact,       color: '#61DAFB' },
-  { name: 'Next.js',      Icon: SiNextdotjs,   color: '#ffffff' },
-  { name: 'TypeScript',   Icon: SiTypescript,  color: '#3178C6' },
-  { name: 'FastAPI',      Icon: SiFastapi,     color: '#009688' },
-  { name: 'Node.js',      Icon: SiNodedotjs,   color: '#339933' },
-  { name: 'Docker',       Icon: SiDocker,      color: '#2496ED' },
-  { name: 'MongoDB',      Icon: SiMongodb,     color: '#47A248' },
-  { name: 'PostgreSQL',   Icon: SiPostgresql,  color: '#4169E1' },
-  { name: 'Git',          Icon: SiGit,         color: '#F05032' },
+  { name: "Python", Icon: SiPython, color: "#3776AB" },
+  { name: "React", Icon: SiReact, color: "#61DAFB" },
+  { name: "Next.js", Icon: SiNextdotjs, color: "#ffffff" },
+  { name: "TypeScript", Icon: SiTypescript, color: "#3178C6" },
+  { name: "FastAPI", Icon: SiFastapi, color: "#009688" },
+  { name: "Node.js", Icon: SiNodedotjs, color: "#339933" },
+  { name: "Docker", Icon: SiDocker, color: "#2496ED" },
+  { name: "MongoDB", Icon: SiMongodb, color: "#47A248" },
+  { name: "PostgreSQL", Icon: SiPostgresql, color: "#4169E1" },
+  { name: "Git", Icon: SiGit, color: "#F05032" },
 ];
 
 const ROW_2: Tech[] = [
-  { name: 'PyTorch',      Icon: SiPytorch,     color: '#EE4C2C' },
-  { name: 'TensorFlow',   Icon: SiTensorflow,  color: '#FF6F00' },
-  { name: 'Tailwind CSS', Icon: SiTailwindcss, color: '#06B6D4' },
-  { name: 'SQLite',       Icon: SiSqlite,      color: '#4479A1' },
-  { name: 'Redis',        Icon: SiRedis,       color: '#DC382D' },
-  { name: 'Linux',        Icon: SiLinux,       color: '#FCC624' },
-  { name: 'JavaScript',   Icon: SiJavascript,  color: '#F7DF1E' },
-  { name: 'GitHub',       Icon: SiGithub,      color: '#ffffff' },
-  { name: 'Pandas',       Icon: SiPandas,      color: '#150458' },
-  { name: 'NumPy',        Icon: SiNumpy,       color: '#013243' },
+  { name: "PyTorch", Icon: SiPytorch, color: "#EE4C2C" },
+  { name: "TensorFlow", Icon: SiTensorflow, color: "#FF6F00" },
+  { name: "Tailwind CSS", Icon: SiTailwindcss, color: "#06B6D4" },
+  { name: "SQLite", Icon: SiSqlite, color: "#4479A1" },
+  { name: "Redis", Icon: SiRedis, color: "#DC382D" },
+  { name: "Linux", Icon: SiLinux, color: "#FCC624" },
+  { name: "JavaScript", Icon: SiJavascript, color: "#F7DF1E" },
+  { name: "GitHub", Icon: SiGithub, color: "#ffffff" },
+  { name: "Pandas", Icon: SiPandas, color: "#150458" },
+  { name: "NumPy", Icon: SiNumpy, color: "#013243" },
 ];
 
 function TechCard({ name, Icon, color }: Tech) {
@@ -57,7 +73,7 @@ function MarqueeRow({ items, reverse = false }: { items: Tech[]; reverse?: boole
   const doubled = [...items, ...items];
   return (
     <div className="overflow-hidden w-full py-2">
-      <div className={`flex ${reverse ? 'animate-marquee-reverse' : 'animate-marquee'}`}>
+      <div className={`flex ${reverse ? "animate-marquee-reverse" : "animate-marquee"}`}>
         {doubled.map((tech, i) => (
           <TechCard key={`${tech.name}-${i}`} {...tech} />
         ))}
