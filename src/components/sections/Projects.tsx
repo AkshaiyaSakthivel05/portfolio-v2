@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, Github, Cpu, TrendingUp, Code2, Lock, Trophy } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -37,13 +37,17 @@ const GRADIENT_BORDERS: Record<string, string> = {
 export default function Projects() {
   const [filter, setFilter] = useState<FilterType>("All");
 
-  const filtered =
-    filter === "All"
-      ? projects
-      : projects.filter((p) => p.category.includes(filter as ProjectCategory));
-
-  const featured = filtered.filter((p) => p.featured);
-  const rest = filtered.filter((p) => !p.featured);
+  const { featured, rest, filtered } = useMemo(() => {
+    const filtered =
+      filter === "All"
+        ? projects
+        : projects.filter((p) => p.category.includes(filter as ProjectCategory));
+    return {
+      filtered,
+      featured: filtered.filter((p) => p.featured),
+      rest: filtered.filter((p) => !p.featured),
+    };
+  }, [filter]);
 
   return (
     <section id="projects" className="relative py-28 bg-[#080810] overflow-hidden">

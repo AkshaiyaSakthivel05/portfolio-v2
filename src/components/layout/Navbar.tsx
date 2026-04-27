@@ -42,7 +42,8 @@ export default function Navbar() {
     return () => observers.forEach((obs) => obs?.disconnect());
   }, []);
 
-  const scrollTo = (href: string) => {
+  const scrollTo = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
     setMobileOpen(false);
     const id = href.replace('#', '');
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -63,15 +64,16 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           {/* Logo */}
-          <button
-            onClick={() => scrollTo('#hero')}
+          <a
+            href="#hero"
+            onClick={(e) => scrollTo(e, '#hero')}
             className="relative group"
           >
             <span className="text-2xl font-black tracking-tight gradient-text glow-text-indigo">
               AKS
             </span>
             <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-gradient-to-r from-indigo-500 to-cyan-400 group-hover:w-full transition-all duration-300" />
-          </button>
+          </a>
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-1">
@@ -79,9 +81,10 @@ export default function Navbar() {
               const id = link.href.replace('#', '');
               const isActive = active === id;
               return (
-                <button
+                <a
                   key={link.href}
-                  onClick={() => scrollTo(link.href)}
+                  href={link.href}
+                  onClick={(e) => scrollTo(e, link.href)}
                   className={cn(
                     'px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200',
                     isActive
@@ -90,7 +93,7 @@ export default function Navbar() {
                   )}
                 >
                   {link.label}
-                </button>
+                </a>
               );
             })}
           </nav>
@@ -130,13 +133,14 @@ export default function Navbar() {
           >
             <nav className="flex flex-col p-4 gap-1">
               {NAV_LINKS.map((link) => (
-                <button
+                <a
                   key={link.href}
-                  onClick={() => scrollTo(link.href)}
+                  href={link.href}
+                  onClick={(e) => scrollTo(e, link.href)}
                   className="text-left px-4 py-3 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all"
                 >
                   {link.label}
-                </button>
+                </a>
               ))}
               <a
                 href="/Akshaiya-Sakthivel-Resume.pdf"

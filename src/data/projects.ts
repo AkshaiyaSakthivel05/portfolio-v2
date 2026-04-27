@@ -294,7 +294,7 @@ export const projects: Project[] = [
     ],
     featured: true,
     hackathon: true,
-    github: "https://github.com/AkshaiyaSakthivel003/Acceler-AI",
+    github: "https://github.com/AkshaiyaSakthivel05/Acceler-AI",
     gradient: "from-amber-500 to-orange-500",
   },
 ];

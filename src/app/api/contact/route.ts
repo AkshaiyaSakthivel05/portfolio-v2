@@ -1,8 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
+const rateLimitStore = new Map<string, number[]>();
+const RATE_LIMIT = 3;
+const WINDOW_MS = 10 * 60 * 1000; // 10 minutes
+
 export async function POST(req: NextRequest) {
   try {
+    const ip = req.headers.get('x-forwarded-for')?.split(',')[0].trim() ?? 'unknown';
+    const now = Date.now();
+    const timestamps = (rateLimitStore.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
+    if (timestamps.length >= RATE_LIMIT) {
+      return NextResponse.json(
+        { error: 'Too many requests. Please wait before submitting again.' },
+        { status: 429 }
+      );
+    }
+    rateLimitStore.set(ip, [...timestamps, now]);
+
     const body = await req.json();
     const { name, email, subject, message } = body;
 
@@ -16,7 +31,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (!process.env.RESEND_API_KEY) {
-      console.log('[Contact Form] No RESEND_API_KEY. Message:', { name, email, subject, message });
+      console.log('[Contact Form] Dev mode — RESEND_API_KEY not set. Submission received from:', email);
       return NextResponse.json({ success: true, dev: true });
     }
 
