@@ -55,3 +55,6 @@ Thumbs.db
 .vscode/*
 !.vscode/settings.json
 *.log
+
+#Folders
+scripts/linkedin_export/
