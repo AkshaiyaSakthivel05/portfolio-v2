@@ -43,6 +43,11 @@ next-env.d.ts
 # local notes / chat logs
 *.txt
 
+# linkedin data export (never commit personal data)
+scripts/*.csv
+scripts/*.zip
+scripts/*.json
+
 # OS
 Thumbs.db
 

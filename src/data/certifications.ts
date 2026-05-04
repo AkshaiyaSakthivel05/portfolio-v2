@@ -5,6 +5,7 @@ export interface Certification {
   name: string;
   issuer: string;
   category: CertCategory;
+  credentialUrl?: string;
 }
 
 export const certifications: Certification[] = [
