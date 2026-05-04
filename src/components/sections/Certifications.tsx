@@ -13,11 +13,12 @@ const ISSUER_DOMAINS: Record<string, string> = {
   NPTEL: "nptel.ac.in",
   MathWorks: "mathworks.com",
   Cisco: "cisco.com",
-  UiPath: "uipath.com",
+  "Automation Anywhere": "automationanywhere.com",
+  Celonis: "celonis.com",
   freeCodeCamp: "freecodecamp.org",
-  AutoCAD: "autodesk.com",
-  Meta: "meta.com",
+  Bentley: "bentley.com",
   HackerRank: "hackerrank.com",
+  "Saylor Academy": "saylor.org",
   IAMNeo: "iamneo.ai",
 };
 
@@ -26,11 +27,12 @@ const ISSUER_COLORS: Record<string, string> = {
   NPTEL: "text-orange-400 bg-orange-500/10 border-orange-500/20",
   MathWorks: "text-red-400    bg-red-500/10    border-red-500/20",
   Cisco: "text-cyan-400   bg-cyan-500/10   border-cyan-500/20",
-  UiPath: "text-orange-400 bg-orange-500/10 border-orange-500/20",
+  "Automation Anywhere": "text-orange-400 bg-orange-500/10 border-orange-500/20",
+  Celonis: "text-indigo-400 bg-indigo-500/10 border-indigo-500/20",
   freeCodeCamp: "text-green-400  bg-green-500/10  border-green-500/20",
-  AutoCAD: "text-red-400    bg-red-500/10    border-red-500/20",
-  Meta: "text-blue-400   bg-blue-500/10   border-blue-500/20",
+  Bentley: "text-blue-400   bg-blue-500/10   border-blue-500/20",
   HackerRank: "text-green-400  bg-green-500/10  border-green-500/20",
+  "Saylor Academy": "text-purple-400 bg-purple-500/10 border-purple-500/20",
   IAMNeo: "text-amber-400  bg-amber-500/10  border-amber-500/20",
 };
 
@@ -191,10 +193,23 @@ export default function Certifications() {
                   initial={false}
                   animate={{ y: paused ? 0 : 20, opacity: paused ? 1 : 0 }}
                   transition={{ duration: 0.2 }}
-                  className="flex items-center gap-1 text-[11px] text-indigo-400 hover:text-indigo-300 cursor-pointer"
                 >
-                  <ExternalLink size={10} />
-                  <span>View credential</span>
+                  {cert.credentialUrl ? (
+                    <a
+                      href={cert.credentialUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1 text-[11px] text-indigo-400 hover:text-indigo-300"
+                    >
+                      <ExternalLink size={10} />
+                      <span>View credential</span>
+                    </a>
+                  ) : (
+                    <span className="flex items-center gap-1 text-[11px] text-slate-600 cursor-default">
+                      <ExternalLink size={10} />
+                      <span>No public link</span>
+                    </span>
+                  )}
                 </motion.div>
               </div>
             </div>

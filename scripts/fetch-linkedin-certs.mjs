@@ -3,19 +3,13 @@
  *
  * SETUP:
  *   bun add -d playwright
- *   bunx playwright install chromium
+ *   npx playwright install chromium
  *
  * USAGE:
  *   LI_AT=<your_li_at_cookie> bun scripts/fetch-linkedin-certs.mjs
  *
- * HOW TO GET li_at COOKIE:
- *   1. Log in to LinkedIn in your browser
- *   2. Open DevTools → Application → Cookies → https://www.linkedin.com
- *   3. Find "li_at" → copy its Value
- *   4. Paste as the LI_AT env var above
- *
  * OUTPUT:
- *   Prints JSON array to stdout — copy into certifications.ts
+ *   Prints JSON array to stdout — paste output here for certifications.ts update
  */
 
 import { chromium } from "playwright";
@@ -24,82 +18,105 @@ const LI_AT = process.env.LI_AT;
 const PROFILE_SLUG = "akshaiya-sakthivel-aa1053240";
 
 if (!LI_AT) {
-  console.error("ERROR: LI_AT env var is required. See setup instructions at top of file.");
+  console.error("ERROR: LI_AT env var is required.");
   process.exit(1);
 }
 
-const browser = await chromium.launch({ headless: true });
-const context = await browser.newContext({
-  userAgent:
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+const browser = await chromium.launch({
+  headless: true,
+  args: [
+    "--disable-blink-features=AutomationControlled",
+    "--no-sandbox",
+    "--disable-setuid-sandbox",
+  ],
 });
 
-// Inject the session cookie so LinkedIn sees us as logged in
-await context.addCookies([
-  {
-    name: "li_at",
-    value: LI_AT,
-    domain: ".linkedin.com",
-    path: "/",
-    httpOnly: true,
-    secure: true,
+const context = await browser.newContext({
+  userAgent:
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+  viewport: { width: 1280, height: 800 },
+  locale: "en-US",
+  extraHTTPHeaders: {
+    "Accept-Language": "en-US,en;q=0.9",
   },
+});
+
+// Inject li_at before any navigation so LinkedIn treats the first request as authenticated
+await context.addCookies([
+  { name: "li_at", value: LI_AT, domain: ".linkedin.com", path: "/", httpOnly: true, secure: true },
 ]);
 
 const page = await context.newPage();
 
-console.error(`Navigating to linkedin.com/in/${PROFILE_SLUG} ...`);
-await page.goto(`https://www.linkedin.com/in/${PROFILE_SLUG}/`, {
-  waitUntil: "domcontentloaded",
-  timeout: 30000,
+// Remove navigator.webdriver flag that headless Chrome exposes
+await page.addInitScript(() => {
+  Object.defineProperty(navigator, "webdriver", { get: () => undefined });
 });
 
-// Check if we got redirected to login (cookie didn't work)
-if (page.url().includes("login") || page.url().includes("authwall")) {
-  console.error("ERROR: Redirected to login page. Your li_at cookie may be expired.");
+// ── Step 1: Land on the feed first so LinkedIn establishes a full session ──
+console.error("Step 1: Landing on feed to establish session...");
+try {
+  await page.goto("https://www.linkedin.com/feed/", {
+    waitUntil: "domcontentloaded",
+    timeout: 30000,
+  });
+} catch (err) {
+  console.error("Feed navigation failed:", err.message);
+}
+
+const feedUrl = page.url();
+console.error(`Landed on: ${feedUrl}`);
+
+if (feedUrl.includes("login") || feedUrl.includes("authwall") || feedUrl.includes("checkpoint")) {
+  console.error("ERROR: Cookie rejected — redirected to auth page. Get a fresh li_at cookie.");
   await browser.close();
   process.exit(1);
 }
 
-// LinkedIn lazy-loads sections — scroll down to trigger certification section load
-await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight / 2));
-await page.waitForTimeout(2000);
-await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-await page.waitForTimeout(2000);
+// Wait for LinkedIn to finish setting its own session cookies
+await page.waitForTimeout(2500);
 
-// Try to find the "Show all licenses & certifications" button and click it
-const showAllBtn = page.locator('a[href*="details/certifications"]').first();
-const hasShowAll = await showAllBtn.count();
-if (hasShowAll > 0) {
-  console.error("Found 'Show all certifications' link — navigating to full list...");
-  await showAllBtn.click();
-  await page.waitForLoadState("domcontentloaded");
-  await page.waitForTimeout(2000);
+// ── Step 2: Navigate to the certifications detail page ──
+const certUrl = `https://www.linkedin.com/in/${PROFILE_SLUG}/details/certifications/`;
+console.error(`Step 2: Navigating to ${certUrl} ...`);
+
+try {
+  await page.goto(certUrl, { waitUntil: "domcontentloaded", timeout: 30000 });
+} catch (err) {
+  console.error("Certifications page failed:", err.message);
+  await browser.close();
+  process.exit(1);
 }
 
-// Scrape all cert entries from the detail page or the section
-const certs = await page.evaluate(() => {
+console.error(`Landed on: ${page.url()}`);
+await page.waitForTimeout(3000);
+
+// Scroll to trigger lazy-loading
+for (let i = 0; i < 5; i++) {
+  await page.evaluate(() => window.scrollBy(0, window.innerHeight));
+  await page.waitForTimeout(600);
+}
+
+// ── Step 3: Scrape ──
+const rawItems = await page.evaluate(() => {
   const results = [];
 
-  // Selector patterns LinkedIn uses (may vary — we try multiple)
-  const containers = document.querySelectorAll(
-    [
-      // Detail page layout
-      "li.pvs-list__paged-list-item",
-      // Inline section layout
-      "#licenses_and_certifications ~ div li",
-      "section[id*='certifications'] li",
-    ].join(", "),
-  );
+  const pvsList = document.querySelectorAll("li.pvs-list__paged-list-item");
 
-  containers.forEach((el) => {
+  pvsList.forEach((el) => {
     const nameEl =
       el.querySelector(".t-bold span[aria-hidden='true']") ||
-      el.querySelector("span.mr1 span[aria-hidden='true']");
+      el.querySelector("[data-field='certificationName'] span[aria-hidden='true']") ||
+      el.querySelector(".mr1 span[aria-hidden='true']");
 
     const linkEl =
       el.querySelector('a[href*="credential"]') ||
-      el.querySelector("a.optional-action-target-wrapper");
+      el.querySelector('a[href*="certificationId"]') ||
+      el.querySelector('a[href*="credly"]') ||
+      el.querySelector('a[href*="coursera"]') ||
+      el.querySelector('a[href*="verify"]') ||
+      el.querySelector('a[href*="freecodecamp"]') ||
+      el.querySelector('a[href*="hackerrank"]');
 
     const name = nameEl?.textContent?.trim() ?? null;
     const credentialUrl = linkEl?.href ?? null;
@@ -107,19 +124,47 @@ const certs = await page.evaluate(() => {
     if (name) results.push({ name, credentialUrl });
   });
 
+  // Fallback: find by "Show credential" / "View credential" link text
+  if (results.length === 0) {
+    document.querySelectorAll("a").forEach((a) => {
+      const txt = a.textContent?.trim().toLowerCase() ?? "";
+      if (txt.includes("show credential") || txt.includes("view credential")) {
+        const section = a.closest("li, section, div[data-view-name]");
+        const nameEl = section?.querySelector(".t-bold span[aria-hidden='true']");
+        results.push({
+          name: nameEl?.textContent?.trim() ?? "(unknown)",
+          credentialUrl: a.href,
+        });
+      }
+    });
+  }
+
+  // Debug fallback: dump raw text of each list item so we can see what loaded
+  if (results.length === 0) {
+    pvsList.forEach((el) => {
+      results.push({
+        name: el.textContent?.replace(/\s+/g, " ").trim().slice(0, 150),
+        credentialUrl: null,
+        _debug: true,
+      });
+    });
+  }
+
   return results;
 });
 
 await browser.close();
 
-if (certs.length === 0) {
+if (rawItems.length === 0) {
   console.error(
-    "WARNING: No certifications found. LinkedIn may have changed its DOM structure, or the section wasn't loaded.",
+    "WARNING: Nothing found. Page may not have loaded certs — try headless: false (line 26) to visually inspect.",
   );
-  console.error("Try running with headless: false to debug (change line 47 to headless: false).");
+} else if (rawItems[0]?._debug) {
+  console.error(
+    `Found ${rawItems.length} raw items (debug — name selectors missed, showing raw text):`,
+  );
 } else {
-  console.error(`Found ${certs.length} certification(s):`);
+  console.error(`Found ${rawItems.length} certification(s).`);
 }
 
-// Print clean JSON to stdout
-console.log(JSON.stringify(certs, null, 2));
+console.log(JSON.stringify(rawItems, null, 2));
