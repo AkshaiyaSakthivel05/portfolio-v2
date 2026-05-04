@@ -45,8 +45,15 @@ function splitCSVLine(line) {
   let current = "";
   let inQuotes = false;
   for (const ch of line) {
-    if (ch === '"') { inQuotes = !inQuotes; continue; }
-    if (ch === "," && !inQuotes) { result.push(current); current = ""; continue; }
+    if (ch === '"') {
+      inQuotes = !inQuotes;
+      continue;
+    }
+    if (ch === "," && !inQuotes) {
+      result.push(current);
+      current = "";
+      continue;
+    }
     current += ch;
   }
   result.push(current);

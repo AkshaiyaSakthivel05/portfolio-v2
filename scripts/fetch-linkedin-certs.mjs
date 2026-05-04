@@ -97,7 +97,9 @@ const certs = await page.evaluate(() => {
       el.querySelector(".t-bold span[aria-hidden='true']") ||
       el.querySelector("span.mr1 span[aria-hidden='true']");
 
-    const linkEl = el.querySelector('a[href*="credential"]') || el.querySelector("a.optional-action-target-wrapper");
+    const linkEl =
+      el.querySelector('a[href*="credential"]') ||
+      el.querySelector("a.optional-action-target-wrapper");
 
     const name = nameEl?.textContent?.trim() ?? null;
     const credentialUrl = linkEl?.href ?? null;
