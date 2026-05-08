@@ -1,4 +1,5 @@
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
+import { GithubIcon, LinkedinIcon } from "@/components/icons/BrandIcons";
 
 export default function Footer() {
   return (
@@ -19,16 +20,16 @@ export default function Footer() {
             className="p-2 rounded-lg text-slate-500 hover:text-white hover:bg-white/5 transition-all"
             aria-label="GitHub"
           >
-            <Github size={18} />
+            <GithubIcon size={18} />
           </a>
           <a
-            href="https://linkedin.com/in/akshaiyasakthivel-aa1053240"
+            href="https://www.linkedin.com/in/akshaiya-sakthivel-aa1053240/"
             target="_blank"
             rel="noopener noreferrer"
             className="p-2 rounded-lg text-slate-500 hover:text-indigo-400 hover:bg-indigo-500/10 transition-all"
             aria-label="LinkedIn"
           >
-            <Linkedin size={18} />
+            <LinkedinIcon size={18} />
           </a>
           <a
             href="mailto:aks05.sk.ai@gmail.com"

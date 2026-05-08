@@ -2,7 +2,8 @@
 
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, Github, Cpu, TrendingUp, Code2, Lock, Trophy } from "lucide-react";
+import { ExternalLink, Cpu, TrendingUp, Code2, Lock, Trophy } from "lucide-react";
+import { GithubIcon } from "@/components/icons/BrandIcons";
 import { Badge } from "@/components/ui/badge";
 import ScrollReveal from "@/components/effects/ScrollReveal";
 import { projects, type ProjectCategory } from "@/data/projects";
@@ -186,7 +187,7 @@ export default function Projects() {
                             rel="noopener noreferrer"
                             className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-white transition-colors"
                           >
-                            <Github size={13} /> Code
+                            <GithubIcon size={13} /> Code
                           </a>
                         )}
                         {project.live && (
@@ -289,7 +290,7 @@ export default function Projects() {
                               rel="noopener noreferrer"
                               className="flex items-center gap-1 text-xs text-slate-500 hover:text-white transition-colors"
                             >
-                              <Github size={12} /> Code
+                              <GithubIcon size={12} /> Code
                             </a>
                           )}
                           {project.live && (

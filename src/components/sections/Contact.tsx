@@ -9,9 +9,8 @@ import {
   Send,
   CheckCircle,
   AlertCircle,
-  Linkedin,
-  Github,
 } from "lucide-react";
+import { GithubIcon, LinkedinIcon } from "@/components/icons/BrandIcons";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import ScrollReveal from "@/components/effects/ScrollReveal";
@@ -59,15 +58,15 @@ const CONTACT_INFO = [
     bg: "bg-purple-500/10",
   },
   {
-    icon: Linkedin,
+    icon: LinkedinIcon,
     label: "LinkedIn",
     value: "akshaiyasakthivel-aa1053240",
-    href: "https://linkedin.com/in/akshaiyasakthivel-aa1053240",
+    href: "https://www.linkedin.com/in/akshaiya-sakthivel-aa1053240/",
     color: "text-blue-400",
     bg: "bg-blue-500/10",
   },
   {
-    icon: Github,
+    icon: GithubIcon,
     label: "GitHub (Main)",
     value: "AkshaiyaSakthivel05",
     href: "https://github.com/AkshaiyaSakthivel05",
@@ -75,7 +74,7 @@ const CONTACT_INFO = [
     bg: "bg-slate-500/10",
   },
   {
-    icon: Github,
+    icon: GithubIcon,
     label: "GitHub (Research)",
     value: "AkshaiyaSakthivel003",
     href: "https://github.com/AkshaiyaSakthivel003",

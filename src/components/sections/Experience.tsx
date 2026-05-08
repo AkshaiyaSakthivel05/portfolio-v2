@@ -10,7 +10,7 @@ export default function Experience() {
     <section id="experience" className="relative py-28 bg-[#080810] overflow-hidden">
       <div className="absolute inset-0 grid-dots opacity-20" />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-6">
+      <div className="relative z-10 max-w-6xl mx-auto px-6">
         {/* Header */}
         <ScrollReveal className="text-center mb-16">
           <span className="text-indigo-400 font-mono text-sm font-semibold tracking-wider uppercase mb-3 block">
@@ -39,22 +39,20 @@ export default function Experience() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.6, delay: i * 0.1 }}
-                  className={`relative flex items-start gap-6 md:gap-0 ${
-                    isLeft ? "md:flex-row" : "md:flex-row-reverse"
-                  }`}
+                  className="relative flex items-start gap-6 md:gap-0"
                 >
-                  {/* Icon dot */}
-                  <div className="relative z-10 flex-shrink-0 ml-0 md:ml-0">
+                  {/* Icon dot — absolute at true center on desktop */}
+                  <div className="z-10 flex-shrink-0 md:absolute md:left-1/2 md:-translate-x-1/2 md:top-0">
                     <div
-                      className={`w-12 h-12 rounded-full ${iconColor} flex items-center justify-center glow-indigo md:absolute md:left-1/2 md:-translate-x-1/2`}
+                      className={`w-12 h-12 rounded-full ${iconColor} flex items-center justify-center glow-indigo`}
                     >
                       <Icon size={18} className="text-white" />
                     </div>
                   </div>
 
-                  {/* Card */}
+                  {/* Card — half width on desktop, left or right of center */}
                   <div
-                    className={`flex-1 ${isLeft ? "md:pr-16 md:pl-0" : "md:pl-16 md:pr-0"} pl-0`}
+                    className={`flex-1 md:w-1/2 md:flex-none ${isLeft ? "md:pr-10" : "md:pl-10 md:ml-auto"}`}
                   >
                     <div className="glass-card p-6">
                       {/* Role + company */}

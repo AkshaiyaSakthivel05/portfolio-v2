@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDown, Github, Linkedin, Download, ArrowRight } from "lucide-react";
+import { ArrowDown, Download, ArrowRight } from "lucide-react";
+import { GithubIcon, LinkedinIcon } from "@/components/icons/BrandIcons";
 import ParticleField from "@/components/effects/ParticleField";
 import TypingText from "@/components/effects/TypingText";
 import AnimatedCounter from "@/components/effects/AnimatedCounter";
@@ -130,16 +131,16 @@ export default function Hero() {
             className="p-3.5 rounded-xl border border-white/10 hover:border-white/30 text-slate-400 hover:text-white transition-all duration-200 hover:bg-white/5"
             aria-label="GitHub"
           >
-            <Github size={20} />
+            <GithubIcon size={20} />
           </a>
           <a
-            href="https://linkedin.com/in/akshaiyasakthivel-aa1053240"
+            href="https://www.linkedin.com/in/akshaiya-sakthivel-aa1053240/"
             target="_blank"
             rel="noopener noreferrer"
             className="p-3.5 rounded-xl border border-indigo-500/20 hover:border-indigo-500/60 text-slate-400 hover:text-indigo-400 transition-all duration-200 hover:bg-indigo-500/10"
             aria-label="LinkedIn"
           >
-            <Linkedin size={20} />
+            <LinkedinIcon size={20} />
           </a>
         </motion.div>
 
