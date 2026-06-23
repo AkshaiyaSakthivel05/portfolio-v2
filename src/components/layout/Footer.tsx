@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="text-center md:text-left">
           <span className="gradient-text font-black text-xl">AKS</span>
           <p className="text-slate-500 text-sm mt-1">
-            AI Developer · FinTech Builder · Full-Stack Engineer
+            AI Developer · FinTech Developer · Full-Stack Engineer
           </p>
         </div>
 

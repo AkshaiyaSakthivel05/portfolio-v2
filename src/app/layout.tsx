@@ -10,6 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://akshaiya-sakthivel05.vercel.app"),
   title: "Akshaiya Sakthivel — AI Developer & FinTech Engineer",
   description:
     "Portfolio of Akshaiya Sakthivel — AI systems engineer working at the intersection of quantitative finance and production machine learning.",

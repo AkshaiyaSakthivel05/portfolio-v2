@@ -15,7 +15,7 @@ export const experiences: ExperienceItem[] = [
     role: "AI Developer",
     company: "Q Data Tech (IHC - Cyrius Holdings)",
     location: "Abu Dhabi, UAE",
-    period: "May 2025 – Present",
+    period: "Jul 2025 – Present",
     type: "work",
     bullets: [
       "Architected and deployed the Master AI Trading System — a multi-agent platform orchestrating 250+ strategies with a proprietary VIP Score ranking algorithm.",
